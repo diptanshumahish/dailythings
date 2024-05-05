@@ -1,0 +1,40 @@
+import 'package:dailythings/constants/colors.dart';
+import 'package:flutter/material.dart';
+
+abstract class TextStyles {
+  static const splashHeading = TextStyle(
+    fontSize: 32,
+    color: DailyThingsColors.themeOrange,
+    fontWeight: FontWeight.bold,
+  );
+  static const heading = TextStyle(
+    fontSize: 26,
+    color: DailyThingsColors.themeBeige,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const subheading = TextStyle(
+    fontSize: 20,
+    color: DailyThingsColors.themeBeige,
+  );
+
+  static const body = TextStyle(
+    fontSize: 14,
+    color: DailyThingsColors.tertiaryGray,
+  );
+
+  static const caption = TextStyle(
+    fontSize: 12,
+    color: DailyThingsColors.tertiaryGray,
+  );
+
+  static const button = TextStyle(
+    fontSize: 14,
+    color: DailyThingsColors.themeOrange,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const italic = TextStyle(
+    fontStyle: FontStyle.italic,
+  );
+}
