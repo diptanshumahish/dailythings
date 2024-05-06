@@ -72,11 +72,10 @@ class _OnBoardHomeState extends ConsumerState<OnBoardHome> {
                       switchInCurve: Curves.easeInOut,
                       switchOutCurve: Curves.easeInOut,
                       duration: const Duration(
-                          milliseconds: 400), // Adjust animation duration
+                          milliseconds: 900), // Adjust animation duration
                       transitionBuilder: (child, animation) {
                         final animationOffset = animation.drive(Tween(
-                          begin:
-                              const Offset(1.0, 0.0), // Start from right side
+                          begin: const Offset(0.0, 1.0),
                           end: Offset.zero, // Slide to center
                         ));
                         return SlideTransition(

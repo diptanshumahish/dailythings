@@ -43,7 +43,7 @@ class OnBoardName extends ConsumerWidget {
           controller: _nameController,
           decoration: const InputDecoration(
               labelText: "Your name", labelStyle: TextStyles.subheading),
-          style: TextStyles.heading,
+          style: TextStyles.subheading,
         ),
         const SizedBox(
           height: 10,

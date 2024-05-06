@@ -29,34 +29,30 @@ class _WelcomeOnboardedUserState extends State<WelcomeOnboardedUser> {
                 Image.asset(
                   DailyThingsImages.breathe,
                   height: 190,
-                ).animate().fade(duration: Duration(milliseconds: 1200)),
-                SizedBox(
+                ).animate().fade(duration: const Duration(milliseconds: 1200)),
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "Breathe in",
                   style: TextStyles.splashHeading,
-                ).animate().fade(duration: Duration(milliseconds: 1300)).hide(
-                    duration: Duration(milliseconds: 1000),
-                    delay: Duration(seconds: 2)),
-                Text(
+                ).animate().fade(duration: const Duration(milliseconds: 1300)),
+                const Text(
                   "and out!",
                   style: TextStyles.heading,
-                )
-                    .animate()
-                    .fade(
-                        delay: Duration(seconds: 2),
-                        duration: Duration(seconds: 1))
-                    .hide(
-                        delay: Duration(seconds: 4),
-                        duration: Duration(seconds: 1)),
-                Text(
+                ).animate().fade(
+                    delay: const Duration(seconds: 2),
+                    duration: const Duration(seconds: 1)),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
                   "Let's go",
                   style: TextStyles.subheading,
                 ).animate().fade(
-                    delay: Duration(seconds: 4),
-                    duration: Duration(seconds: 1)),
-                SizedBox(
+                    delay: const Duration(seconds: 4),
+                    duration: const Duration(seconds: 1)),
+                const SizedBox(
                   height: 20,
                 ),
                 OffsetFullButton(
@@ -64,7 +60,8 @@ class _WelcomeOnboardedUserState extends State<WelcomeOnboardedUser> {
                   fn: () {},
                   icon: Icons.wb_twighlight,
                 ).animate().fade(
-                    delay: Duration(seconds: 4), duration: Duration(seconds: 1))
+                    delay: const Duration(seconds: 4),
+                    duration: const Duration(seconds: 1))
               ],
             ),
           ),
