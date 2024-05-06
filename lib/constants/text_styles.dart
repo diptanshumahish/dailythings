@@ -14,9 +14,11 @@ abstract class TextStyles {
   );
 
   static const subheading = TextStyle(
-    fontSize: 20,
+    fontSize: 16,
     color: DailyThingsColors.themeBeige,
   );
+  static const subheadingDark =
+      TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600);
 
   static const body = TextStyle(
     fontSize: 14,

@@ -1,0 +1,100 @@
+import 'package:dailythings/constants/colors.dart';
+import 'package:dailythings/constants/images.dart';
+import 'package:dailythings/constants/text_styles.dart';
+import 'package:dailythings/screens/onbaord/onbaord_age.dart';
+import 'package:dailythings/screens/onbaord/onbaord_name.dart';
+import 'package:dailythings/screens/onbaord/onboard_gender.dart';
+import 'package:dailythings/screens/onbaord/onboard_info.dart';
+import 'package:dailythings/screens/onbaord/onboard_marit.dart';
+import 'package:dailythings/state/providers.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+const _screens = [
+  OnboardInfo(
+    key: GlobalObjectKey("One"),
+  ),
+  OnBoardName(
+    key: GlobalObjectKey("Name"),
+  ),
+  OnboardAge(
+    key: GlobalObjectKey("Age"),
+  ),
+  OnboardGender(
+    key: GlobalObjectKey("Gender"),
+  ),
+  OnboardMaritial(
+    key: GlobalObjectKey("Marit"),
+  ),
+];
+
+class OnBoardHome extends ConsumerStatefulWidget {
+  const OnBoardHome({super.key});
+
+  @override
+  ConsumerState<OnBoardHome> createState() => _OnBoardHomeState();
+}
+
+class _OnBoardHomeState extends ConsumerState<OnBoardHome> {
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final activeIndex = ref.watch(onboardTabsProvider);
+    return Scaffold(
+      backgroundColor: DailyThingsColors.backgroundColor,
+      body: CustomScrollView(slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: SizedBox(
+              height: size.height,
+              width: size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Image.asset(
+                      DailyThingsImages.zen,
+                      height: 120,
+                    ),
+                  ),
+                  const Text(
+                    "First Things first!",
+                    style: TextStyles.splashHeading,
+                  ),
+                  const Text(
+                    "Let's know each other a bit :)",
+                    style: TextStyles.subheading,
+                  ),
+                  AnimatedSwitcher(
+                      switchInCurve: Curves.easeInOut,
+                      switchOutCurve: Curves.easeInOut,
+                      duration: const Duration(
+                          milliseconds: 400), // Adjust animation duration
+                      transitionBuilder: (child, animation) {
+                        final animationOffset = animation.drive(Tween(
+                          begin:
+                              const Offset(1.0, 0.0), // Start from right side
+                          end: Offset.zero, // Slide to center
+                        ));
+                        return SlideTransition(
+                          position: animationOffset,
+                          child:
+                              FadeTransition(opacity: animation, child: child),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: _screens[activeIndex.tab],
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+}
