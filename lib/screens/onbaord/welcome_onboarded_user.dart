@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dailythings/components/common/buttons/offset_full_button.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/images.dart';
@@ -13,9 +14,27 @@ class WelcomeOnboardedUser extends StatefulWidget {
 }
 
 class _WelcomeOnboardedUserState extends State<WelcomeOnboardedUser> {
+  playAudio() async {
+    final player = AudioPlayer();
+
+    try {
+      player.setVolume(0.6);
+      await player.play(AssetSource("audio/relax.mp3"));
+    } catch (error) {
+      print("Error playing audio: $error");
+    }
+  }
+
+  @override
+  void initState() {
+    playAudio();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
         backgroundColor: DailyThingsColors.backgroundColor,
         body: Padding(

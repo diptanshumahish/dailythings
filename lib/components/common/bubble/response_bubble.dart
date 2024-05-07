@@ -1,6 +1,8 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class ResponseBubble extends StatelessWidget {
@@ -49,7 +51,17 @@ class ResponseBubble extends StatelessWidget {
                           ? const Radius.circular(20)
                           : Radius.zero,
                     ),
-                    onTap: () {
+                    onTap: () async {
+                      final player = AudioPlayer();
+
+                      try {
+                        player.setVolume(0.6);
+                        await player.play(AssetSource("audio/tick.mp3"));
+
+                        fn();
+                      } catch (error) {
+                        print("Error playing audio: $error");
+                      }
                       fn();
                     },
                     child: DecoratedBox(
