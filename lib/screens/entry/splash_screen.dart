@@ -1,10 +1,14 @@
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/images.dart';
+import 'package:dailythings/constants/keys.dart';
 import 'package:dailythings/constants/text_styles.dart';
+import 'package:dailythings/screens/main/home.dart';
 import 'package:dailythings/screens/onbaord/onbaord_home.dart';
+import 'package:dailythings/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,6 +16,25 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    Future<int> initialCheck() async {
+      String? check1 =
+          await getDataFromLocalStorage(DailyThingsKeys.userNameKey);
+      String? check2 =
+          await getDataFromLocalStorage(DailyThingsKeys.userAgeKey);
+      String? check3 =
+          await getDataFromLocalStorage(DailyThingsKeys.userGenderKey);
+      String? check4 =
+          await getDataFromLocalStorage(DailyThingsKeys.userMartialStatus);
+      if (check1 != null &&
+          check2 != null &&
+          check3 != null &&
+          check4 != null) {
+        return 1;
+      }
+      return 0;
+    }
+
     return Scaffold(
       backgroundColor: DailyThingsColors.backgroundColor,
       body: Stack(
@@ -67,7 +90,21 @@ class SplashScreen extends StatelessWidget {
                             color: DailyThingsColors.themeBeige,
                             borderRadius: BorderRadius.circular(50)),
                         child: GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            // final int res = await initialCheck();
+                            // if (res == 1) {
+                            //   Navigator.pushAndRemoveUntil(
+                            //       context,
+                            //       PageTransition(
+                            //           child: const HomeMain(),
+                            //           curve: Curves.easeInOut,
+                            //           duration:
+                            //               const Duration(milliseconds: 500),
+                            //           type: PageTransitionType.rightToLeft),
+                            //       (route) => false);
+                            //   return;
+                            // }
+
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 PageTransition(

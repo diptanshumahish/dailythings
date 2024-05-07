@@ -4,6 +4,7 @@ import 'package:dailythings/components/common/buttons/offset_full_button.dart';
 import 'package:dailythings/constants/keys.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/screens/onbaord/welcome_onboarded_user.dart';
+import 'package:dailythings/state/providers.dart';
 import 'package:dailythings/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -103,13 +104,7 @@ class _OnboardMaritialState extends ConsumerState<OnboardMaritial> {
 
   updateMarit(String code) async {
     await addToLocalStorage(DailyThingsKeys.userMartialStatus, code);
-    Navigator.pushAndRemoveUntil(
-        context,
-        PageTransition(
-            child: const WelcomeOnboardedUser(),
-            curve: Curves.easeInOut,
-            type: PageTransitionType.rightToLeft),
-        (route) => false);
+    ref.read(onboardTabsProvider.notifier).updateTab(5);
   }
 
   @override

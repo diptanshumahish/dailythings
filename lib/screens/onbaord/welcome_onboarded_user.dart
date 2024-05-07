@@ -3,6 +3,7 @@ import 'package:dailythings/components/common/buttons/offset_full_button.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/images.dart';
 import 'package:dailythings/constants/text_styles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -18,10 +19,12 @@ class _WelcomeOnboardedUserState extends State<WelcomeOnboardedUser> {
     final player = AudioPlayer();
 
     try {
-      player.setVolume(0.6);
+      player.setVolume(0.8);
       await player.play(AssetSource("audio/relax.mp3"));
     } catch (error) {
-      print("Error playing audio: $error");
+      if (kDebugMode) {
+        print("Error playing audio: $error");
+      }
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:dailythings/screens/onbaord/onbaord_name.dart';
 import 'package:dailythings/screens/onbaord/onboard_gender.dart';
 import 'package:dailythings/screens/onbaord/onboard_info.dart';
 import 'package:dailythings/screens/onbaord/onboard_marit.dart';
+import 'package:dailythings/screens/onbaord/onboard_time.dart';
 import 'package:dailythings/state/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,6 +27,9 @@ const _screens = [
   OnboardMaritial(
     key: GlobalObjectKey("Marit"),
   ),
+  OnboardTime(
+    key: GlobalObjectKey("time"),
+  )
 ];
 
 class OnBoardHome extends ConsumerStatefulWidget {
