@@ -1,14 +1,18 @@
 import 'package:dailythings/constants/theme.dart';
 import 'package:dailythings/screens/entry/splash_screen.dart';
+import 'package:dailythings/utils/notif_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+  tz.initializeTimeZones();
+  DTNotificationService().initNotifications();
   runApp(const ProviderScope(child: DailyThings()));
 }
 

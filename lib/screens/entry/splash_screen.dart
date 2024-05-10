@@ -4,11 +4,13 @@ import 'package:dailythings/constants/keys.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/screens/main/home.dart';
 import 'package:dailythings/screens/onbaord/onbaord_home.dart';
+import 'package:dailythings/screens/onbaord/welcome_onboarded_user.dart';
 import 'package:dailythings/utils/local_storage.dart';
+import 'package:dailythings/utils/notif_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/timezone.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -91,19 +93,26 @@ class SplashScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50)),
                         child: GestureDetector(
                           onTap: () async {
-                            // final int res = await initialCheck();
-                            // if (res == 1) {
-                            //   Navigator.pushAndRemoveUntil(
-                            //       context,
-                            //       PageTransition(
-                            //           child: const HomeMain(),
-                            //           curve: Curves.easeInOut,
-                            //           duration:
-                            //               const Duration(milliseconds: 500),
-                            //           type: PageTransitionType.rightToLeft),
-                            //       (route) => false);
-                            //   return;
-                            // }
+                            final int res = await initialCheck();
+                            if (res == 1) {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  PageTransition(
+                                      child: const WelcomeOnboardedUser(),
+                                      curve: Curves.easeInOut,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      type: PageTransitionType.fade),
+                                  (route) => false);
+                              return;
+                            }
+                            // await DTNotificationService().scheduledNotification(
+                            //     body:
+                            //         "Tera notification is very large but i think we can get it quite small if we want to and this is nice, how nice if you ask, well i think not that nice but its getting large enough to be here",
+                            //     id: 23,
+                            //     payload: "90",
+                            //     title: "Dailythings notification",
+                            //     scheduledNotificationDateTime: DateTime.now());
 
                             Navigator.pushAndRemoveUntil(
                                 context,
@@ -112,6 +121,24 @@ class SplashScreen extends StatelessWidget {
                                     curve: Curves.easeInOut,
                                     type: PageTransitionType.rightToLeft),
                                 (route) => false);
+                            // bool data =
+                            //     await AwesomeNotifications().createNotification(
+                            //   content: NotificationContent(
+                            //     id: 20,
+                            //     channelKey: 'DT_BASIC',
+                            //     title: 'Just in time!',
+                            //     body:
+                            //         'This notification was scheduled to shows at ',
+                            //     wakeUpScreen: true,
+                            //     category: NotificationCategory.Reminder,
+                            //     notificationLayout: NotificationLayout.BigText,
+                            //     backgroundColor: DailyThingsColors.themeOrange,
+                            //     displayOnBackground: false,
+                            //     payload: {'uuid': 'uuid-test'},
+                            //     actionType: ActionType.KeepOnTop,
+                            //   ),
+                            // );
+                            // print(data);
                           },
                           child: Center(
                             child: Animate(effects: const [

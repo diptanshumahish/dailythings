@@ -24,6 +24,10 @@ abstract class TextStyles {
     fontSize: 14,
     color: DailyThingsColors.tertiaryGray,
   );
+  static const bodyNavbarActive = TextStyle(
+    fontSize: 14,
+    color: DailyThingsColors.themeOrange,
+  );
 
   static const caption = TextStyle(
     fontSize: 12,

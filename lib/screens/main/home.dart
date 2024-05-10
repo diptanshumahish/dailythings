@@ -1,6 +1,27 @@
+import 'package:dailythings/components/common/navbar/bottom_navbar.dart';
 import 'package:dailythings/constants/colors.dart';
+import 'package:dailythings/screens/main/daily/daily_inner.dart';
+import 'package:dailythings/screens/main/home/home_inner.dart';
+import 'package:dailythings/screens/main/journal/journal_inner.dart';
+import 'package:dailythings/screens/main/settings/settings_inner.dart';
+import 'package:dailythings/state/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final List<Widget> _pages = [
+  HomeInner(
+    key: Key("home"),
+  ),
+  JournalInner(
+    key: Key("journal"),
+  ),
+  DailyInner(
+    key: Key("daily"),
+  ),
+  SettingsInner(
+    key: Key("set"),
+  )
+];
 
 class HomeMain extends ConsumerStatefulWidget {
   const HomeMain({super.key});
@@ -12,8 +33,30 @@ class HomeMain extends ConsumerStatefulWidget {
 class _HomeMainState extends ConsumerState<HomeMain> {
   @override
   Widget build(BuildContext context) {
+    final pageIndex = ref.watch(tabsProvider);
+
     return Scaffold(
-      backgroundColor: DailyThingsColors.backgroundColor,
+      backgroundColor: Colors.black,
+      body: AnimatedSwitcher(
+          switchInCurve: Curves.easeInOut,
+          switchOutCurve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 400),
+          transitionBuilder: (child, animation) {
+            final animationOffset = animation.drive(Tween(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ));
+            return SlideTransition(
+              position: animationOffset,
+              child: FadeTransition(opacity: animation, child: child),
+            );
+          },
+          child: _pages[pageIndex.tab]),
+      extendBody: true,
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: BottomNavbar(),
+      ),
     );
   }
 }

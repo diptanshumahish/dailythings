@@ -3,20 +3,31 @@ import 'package:dailythings/components/common/buttons/offset_full_button.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/images.dart';
 import 'package:dailythings/constants/text_styles.dart';
+import 'package:dailythings/screens/main/home.dart';
+import 'package:dailythings/state/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 
-class WelcomeOnboardedUser extends StatefulWidget {
+class WelcomeOnboardedUser extends ConsumerStatefulWidget {
   const WelcomeOnboardedUser({super.key});
 
   @override
-  State<WelcomeOnboardedUser> createState() => _WelcomeOnboardedUserState();
+  ConsumerState<WelcomeOnboardedUser> createState() =>
+      _WelcomeOnboardedUserState();
 }
 
-class _WelcomeOnboardedUserState extends State<WelcomeOnboardedUser> {
+class _WelcomeOnboardedUserState extends ConsumerState<WelcomeOnboardedUser> {
   playAudio() async {
     final player = AudioPlayer();
+    player.setAudioContext(AudioContext(
+        android: const AudioContextAndroid(
+            audioFocus: AndroidAudioFocus.none,
+            audioMode: AndroidAudioMode.normal,
+            contentType: AndroidContentType.sonification,
+            usageType: AndroidUsageType.game)));
 
     try {
       player.setVolume(0.8);
@@ -79,7 +90,15 @@ class _WelcomeOnboardedUserState extends State<WelcomeOnboardedUser> {
                 ),
                 OffsetFullButton(
                   content: "Continue",
-                  fn: () {},
+                  fn: () async {
+                    await ref.read(userProvider.notifier).loadUserDetails();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                            child: const HomeMain(),
+                            type: PageTransitionType.fade),
+                        (route) => false);
+                  },
                   icon: Icons.wb_twighlight,
                 ).animate().fade(
                     delay: const Duration(seconds: 4),
