@@ -16,8 +16,8 @@ class WriterScreen extends StatelessWidget {
       floatingActionButton: Container(
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(100)),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
+        child: const Padding(
+          padding: EdgeInsets.all(15.0),
           child: Icon(
             Icons.check,
             size: 15,
@@ -35,22 +35,24 @@ class WriterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Animate(
-                      effects: [FadeEffect()],
+                      effects: const [FadeEffect()],
                       child: Text(
                         DateFormat("dd MMMM, y | hh:mm a")
                             .format(DateTime.now()),
                         style: TextStyles.bodyNavbarActive,
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.white12,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Animate(
-                      effects: [FadeEffect(delay: Duration(milliseconds: 100))],
-                      child: TextField(
+                      effects: const [
+                        FadeEffect(delay: Duration(milliseconds: 100))
+                      ],
+                      child: const TextField(
                         scrollPadding: EdgeInsets.zero,
                         autocorrect: false,
                         style: TextStyles.heading,
@@ -68,7 +70,9 @@ class WriterScreen extends StatelessWidget {
                       ),
                     ),
                     Animate(
-                      effects: [FadeEffect(delay: Duration(milliseconds: 200))],
+                      effects: const [
+                        FadeEffect(delay: Duration(milliseconds: 200))
+                      ],
                       child: TextFormField(
                         selectionHeightStyle: BoxHeightStyle.tight,
                         scrollPadding: EdgeInsets.zero,
@@ -77,7 +81,7 @@ class WriterScreen extends StatelessWidget {
                         minLines: 2,
                         maxLines: 400,
                         selectionWidthStyle: BoxWidthStyle.tight,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           border: InputBorder.none,
                           labelText: "pen down your thoughts",
