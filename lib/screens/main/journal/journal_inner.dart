@@ -1,4 +1,5 @@
 import 'package:dailythings/components/journal/j_calendar_view.dart';
+import 'package:dailythings/components/journal/write_journal.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +18,7 @@ class _JournalInnerState extends ConsumerState<JournalInner> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           const SliverToBoxAdapter(
             child: Padding(
@@ -43,12 +45,7 @@ class _JournalInnerState extends ConsumerState<JournalInner> {
               })
             },
           ),
-          SliverToBoxAdapter(
-            child: Text(
-              _selectedId,
-              style: TextStyles.body,
-            ),
-          )
+          WriteJournal()
         ],
       ),
     );

@@ -46,7 +46,18 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
         final currentDayIndex =
             _cal.data.indexWhere((e) => e.id == _cal.currentDayId);
         if (currentDayIndex != -1) {
-          _scrollController.jumpTo(currentDayIndex * size.width / 6.5);
+          _scrollController.animateTo(currentDayIndex * size.width / 6.5,
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeInOut);
+        }
+      });
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final currentDayIndex = _cal.data.indexWhere((e) => e.id == _selctedId);
+        if (currentDayIndex != -1) {
+          _scrollController.animateTo(currentDayIndex * size.width / 6.5,
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeInOut);
         }
       });
     }

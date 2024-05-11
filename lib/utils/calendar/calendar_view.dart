@@ -89,9 +89,20 @@ String getMonthName(int monthNumber) {
   return months[monthNumber - 1];
 }
 
-class MonthData {
-  final int month;
-  final int index;
+String getWeekDayName(int weekdayNumber) {
+  const weekdays = [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun",
+  ];
 
-  MonthData({required this.month, required this.index});
+  if (weekdayNumber < 1 || weekdayNumber > weekdays.length) {
+    return "Invalid weekday number";
+  }
+
+  return weekdays[weekdayNumber - 1];
 }
