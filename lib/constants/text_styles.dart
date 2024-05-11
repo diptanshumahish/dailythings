@@ -12,6 +12,11 @@ abstract class TextStyles {
     color: DailyThingsColors.themeBeige,
     fontWeight: FontWeight.bold,
   );
+  static const headingInvert = TextStyle(
+    fontSize: 26,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
 
   static const subheading = TextStyle(
     fontSize: 16,
@@ -41,6 +46,5 @@ abstract class TextStyles {
   );
 
   static const italic = TextStyle(
-    fontStyle: FontStyle.italic,
-  );
+      fontStyle: FontStyle.italic, color: DailyThingsColors.tertiaryGray);
 }

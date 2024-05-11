@@ -1,10 +1,9 @@
-import 'package:dailythings/components/common/bubble/zen_bubble.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/state/providers.dart';
 import 'package:dailythings/utils/greeting_service.dart';
-import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -24,37 +23,55 @@ class HomeTop extends ConsumerWidget {
               "Today is, ",
               style: TextStyles.body,
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.calendar_today,
-                  color: DailyThingsColors.themeOrange,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  DateFormat('d MMM, yyyy (EEEE)').format(DateTime.now()),
-                  style: TextStyles.heading,
-                ),
+            Animate(
+              effects: const [
+                FadeEffect(
+                    delay: Duration(milliseconds: 100), curve: Curves.easeInOut)
               ],
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.calendar_today,
+                    color: DailyThingsColors.themeOrange,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    DateFormat('d MMM, yyyy (EEEE)').format(DateTime.now()),
+                    style: TextStyles.heading,
+                  ),
+                ],
+              ),
             ),
-            Divider(
+            const Divider(
               color: Colors.white24,
             ),
-            Text(
+            const Text(
               "Heyo ^^",
               style: TextStyles.subheading,
             ),
-            Text(
-              "${userDetails.name ?? "buddy"},",
-              style: TextStyles.splashHeading,
+            Animate(
+              effects: const [
+                FadeEffect(
+                    delay: Duration(milliseconds: 200), curve: Curves.easeInOut)
+              ],
+              child: Text(
+                "${userDetails.name ?? "buddy"},",
+                style: TextStyles.splashHeading,
+              ),
             ),
-            Text(
-              greetUser(TimeOfDay.now(), userDetails.gender ?? "M"),
-              style: TextStyles.subheading,
-            )
+            Animate(
+              effects: const [
+                FadeEffect(
+                    delay: Duration(milliseconds: 300), curve: Curves.easeInOut)
+              ],
+              child: Text(
+                greetUser(TimeOfDay.now(), userDetails.gender ?? "M"),
+                style: TextStyles.subheading,
+              ),
+            ),
           ],
         ),
       ),

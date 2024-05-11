@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TopBar extends ConsumerWidget {
@@ -15,10 +16,13 @@ class TopBar extends ConsumerWidget {
     return FlexibleSpaceBar(
         background: Stack(
       children: [
-        Image.asset(
-          height: size.height / 2.5,
-          imgLink,
-          fit: BoxFit.cover,
+        Animate(
+          effects: [ScaleEffect(curve: Curves.easeInOut)],
+          child: Image.asset(
+            height: size.height / 2.5,
+            imgLink,
+            fit: BoxFit.cover,
+          ),
         ),
       ],
     ));
