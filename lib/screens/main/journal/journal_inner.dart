@@ -45,7 +45,9 @@ class _JournalInnerState extends ConsumerState<JournalInner> {
               })
             },
           ),
-          WriteJournal()
+          WriteJournal(
+            selectedId: _selectedId,
+          )
         ],
       ),
     );

@@ -8,12 +8,14 @@ class OffsetFullButton extends StatelessWidget {
   final VoidCallback fn;
   final bool? notFull;
   final bool? isLoading;
+  final bool? darkvariant;
   const OffsetFullButton(
       {super.key,
       this.isLoading = false,
       required this.content,
       required this.fn,
       this.icon,
+      this.darkvariant = false,
       this.notFull});
 
   @override
@@ -24,7 +26,9 @@ class OffsetFullButton extends StatelessWidget {
         child: Container(
           width: notFull == null ? size.width : size.width / 3,
           decoration: BoxDecoration(
-              color: DailyThingsColors.themeOrange,
+              color: darkvariant!
+                  ? DailyThingsColors.backgroundColor
+                  : DailyThingsColors.themeOrange,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.black),
               boxShadow: const [
@@ -63,7 +67,7 @@ class OffsetFullButton extends StatelessWidget {
                       Text(
                         content,
                         style: TextStyle(
-                            color: Colors.black,
+                            color: darkvariant! ? Colors.white : Colors.black,
                             fontWeight: FontWeight.w500,
                             fontFamily: "Cabinet",
                             fontSize: size.height > 840 ? 15 : 14),
