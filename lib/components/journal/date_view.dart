@@ -7,11 +7,13 @@ class DateView extends StatelessWidget {
   final String day;
   final bool pastDate;
   final bool currentDay;
+  final bool isSelectedDate;
   const DateView(
       {super.key,
       required this.date,
       required this.day,
       required this.pastDate,
+      required this.isSelectedDate,
       required this.currentDay});
 
   @override
@@ -19,7 +21,7 @@ class DateView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Opacity(
-        opacity: pastDate ? 0.5 : 1,
+        opacity: (pastDate && !isSelectedDate) ? 0.5 : 1,
         child: Container(
           decoration: BoxDecoration(
               color: currentDay
@@ -27,7 +29,9 @@ class DateView extends StatelessWidget {
                   : DailyThingsColors.backgroundColor,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                  color: DailyThingsColors.tertiaryGray.withOpacity(0.6))),
+                  color: isSelectedDate
+                      ? DailyThingsColors.themeOrange
+                      : DailyThingsColors.tertiaryGray.withOpacity(0.6))),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
             child: Column(

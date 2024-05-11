@@ -8,11 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 CalendarOutPut _cal =
     CalendarOutPut(month: 1, data: [], year: 000, currentDayId: "");
 
-int month = 1;
-int year = 000;
+int _month = 1;
+int _year = 000;
+String _selctedId = "";
 
 class JCalendarView extends ConsumerStatefulWidget {
-  const JCalendarView({super.key});
+  final Function(String) selectedId;
+  const JCalendarView({super.key, required this.selectedId});
 
   @override
   ConsumerState<JCalendarView> createState() => _JCalendarViewState();
@@ -31,21 +33,23 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
 
     setState(() {
       _cal = getCalendarView(now.month, now.year);
-      month = now.month;
-      year = now.year;
+      _month = now.month;
+      _year = now.year;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final currentDayIndex =
-          _cal.data.indexWhere((e) => e.id == _cal.currentDayId);
-      if (currentDayIndex != -1) {
-        _scrollController.jumpTo(currentDayIndex * size.width / 6.5);
-      }
-    });
+    if (_selctedId == "") {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final currentDayIndex =
+            _cal.data.indexWhere((e) => e.id == _cal.currentDayId);
+        if (currentDayIndex != -1) {
+          _scrollController.jumpTo(currentDayIndex * size.width / 6.5);
+        }
+      });
+    }
     return SliverToBoxAdapter(
       child: Animate(
         effects: const [
@@ -68,16 +72,25 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
                     effects: [
                       FadeEffect(delay: Duration(milliseconds: 25 * e.date))
                     ],
-                    child: DateView(
-                        date: e.date,
-                        day: e.weekDay,
-                        pastDate: e.pastDate,
-                        currentDay: (e.id == _cal.currentDayId)),
+                    child: GestureDetector(
+                      onTap: () {
+                        widget.selectedId(e.id);
+                        setState(() {
+                          _selctedId = e.id;
+                        });
+                      },
+                      child: DateView(
+                          date: e.date,
+                          day: e.weekDay,
+                          isSelectedDate: _selctedId == e.id ? true : false,
+                          pastDate: e.pastDate,
+                          currentDay: (e.id == _cal.currentDayId)),
+                    ),
                   );
                 }).toList(),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
@@ -87,21 +100,21 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "${getMonthName(_cal.month)}, $year",
+                    "${getMonthName(_cal.month)}, $_year",
                     style: TextStyles.heading,
                   ),
                   Row(
                     children: [
                       InkWell(
                         onTap: () {
-                          if (month == 1) {
-                            month = 12;
-                            year--;
+                          if (_month == 1) {
+                            _month = 12;
+                            _year--;
                           } else {
-                            month--;
+                            _month--;
                           }
                           setState(() {
-                            _cal = getCalendarView(month, year);
+                            _cal = getCalendarView(_month, _year);
                           });
                         },
                         child: Text(
@@ -114,14 +127,14 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
                       ),
                       InkWell(
                         onTap: () {
-                          if (month == 12) {
-                            month = 1;
-                            year++;
+                          if (_month == 12) {
+                            _month = 1;
+                            _year++;
                           } else {
-                            month++;
+                            _month++;
                           }
                           setState(() {
-                            _cal = getCalendarView(month, year);
+                            _cal = getCalendarView(_month, _year);
                           });
                         },
                         child: Text(

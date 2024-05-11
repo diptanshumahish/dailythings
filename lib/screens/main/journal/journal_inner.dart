@@ -3,15 +3,22 @@ import 'package:dailythings/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class JournalInner extends ConsumerWidget {
+String _selectedId = "";
+
+class JournalInner extends ConsumerStatefulWidget {
   const JournalInner({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const SafeArea(
+  ConsumerState<JournalInner> createState() => _JournalInnerState();
+}
+
+class _JournalInnerState extends ConsumerState<JournalInner> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
       child: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(15.0),
               child: Column(
@@ -22,14 +29,26 @@ class JournalInner extends ConsumerWidget {
                     style: TextStyles.splashHeading,
                   ),
                   Text(
-                    "Write daily, one year at a time 😎",
+                    "Write daily, all that's happening",
                     style: TextStyles.subheading,
                   )
                 ],
               ),
             ),
           ),
-          JCalendarView()
+          JCalendarView(
+            selectedId: (data) => {
+              setState(() {
+                _selectedId = data;
+              })
+            },
+          ),
+          SliverToBoxAdapter(
+            child: Text(
+              _selectedId,
+              style: TextStyles.body,
+            ),
+          )
         ],
       ),
     );
