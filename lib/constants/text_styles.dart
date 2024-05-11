@@ -12,6 +12,11 @@ abstract class TextStyles {
     color: DailyThingsColors.themeBeige,
     fontWeight: FontWeight.bold,
   );
+  static const headingPlaceholder = TextStyle(
+    fontSize: 26,
+    color: Colors.white54,
+    fontWeight: FontWeight.bold,
+  );
   static const headingInvert = TextStyle(
     fontSize: 26,
     color: Colors.black,
