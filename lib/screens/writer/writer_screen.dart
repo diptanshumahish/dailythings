@@ -127,7 +127,7 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
                         scrollPadding: EdgeInsets.zero,
                         style: TextStyles.body,
                         keyboardType: TextInputType.multiline,
-                        minLines: 50,
+                        minLines: 1,
                         maxLines: 400,
                         selectionWidthStyle: BoxWidthStyle.tight,
                         decoration: const InputDecoration(
