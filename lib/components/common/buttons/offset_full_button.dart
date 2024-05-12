@@ -1,6 +1,8 @@
 import 'package:dailythings/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:vibration/vibration.dart';
 
 class OffsetFullButton extends StatelessWidget {
   final String content;
@@ -80,6 +82,8 @@ class OffsetFullButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
+          HapticFeedback.lightImpact();
+          Vibration.vibrate(amplitude: 20, duration: 40);
           fn();
         });
   }

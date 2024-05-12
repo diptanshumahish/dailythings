@@ -4,7 +4,9 @@ import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/state/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vibration/vibration.dart';
 
 class NavbarContent extends ConsumerWidget {
   final Icon icon;
@@ -26,6 +28,8 @@ class NavbarContent extends ConsumerWidget {
     final selectedTab = ref.watch(tabsProvider);
     return GestureDetector(
       onTap: () async {
+        HapticFeedback.lightImpact();
+        Vibration.vibrate(amplitude: 20, duration: 40);
         final player = AudioPlayer();
         player.setAudioContext(AudioContext(
             android: const AudioContextAndroid(

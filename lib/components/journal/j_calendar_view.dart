@@ -2,8 +2,10 @@ import 'package:dailythings/components/journal/date_view.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/utils/calendar/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vibration/vibration.dart';
 
 CalendarOutPut _cal =
     CalendarOutPut(month: 1, data: [], year: 000, currentDayId: "");
@@ -86,6 +88,8 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
                     child: GestureDetector(
                       onTap: () {
                         widget.selectedId(e.id);
+                        HapticFeedback.lightImpact();
+                        Vibration.vibrate(amplitude: 20, duration: 40);
                         setState(() {
                           _selctedId = e.id;
                         });
