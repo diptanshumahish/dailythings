@@ -19,19 +19,19 @@ class WriteJournal extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
         child: Column(
           children: [
-            // Animate(
-            //   effects: const [ScaleEffect()],
-            //   child: ClipRRect(
-            //       borderRadius: BorderRadius.circular(8),
-            //       child: Image.asset(DailyThingsImages.write)),
-            // ),
+            Animate(
+              effects: const [ScaleEffect()],
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(DailyThingsImages.write)),
+            ),
             selectedId != ""
                 ? Animate(
                     effects: const [FadeEffect()],
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
