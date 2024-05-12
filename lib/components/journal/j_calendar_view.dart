@@ -1,5 +1,6 @@
 import 'package:dailythings/components/journal/date_view.dart';
 import 'package:dailythings/constants/text_styles.dart';
+import 'package:dailythings/state/providers.dart';
 import 'package:dailythings/utils/calendar/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,6 +64,13 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
         }
       });
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(currentDateProvider.notifier).updateID(_cal.currentDayId);
+      }
+    });
+
     return SliverToBoxAdapter(
       child: Animate(
         effects: const [
@@ -88,6 +96,7 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
                     child: GestureDetector(
                       onTap: () {
                         widget.selectedId(e.id);
+                        ref.read(selectedDateProvider.notifier).updateID(e.id);
                         HapticFeedback.lightImpact();
                         Vibration.vibrate(amplitude: 20, duration: 40);
                         setState(() {

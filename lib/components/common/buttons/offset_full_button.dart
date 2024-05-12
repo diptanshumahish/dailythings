@@ -83,7 +83,8 @@ class OffsetFullButton extends StatelessWidget {
         ),
         onPressed: () {
           HapticFeedback.lightImpact();
-          Vibration.vibrate(amplitude: 20, duration: 40);
+          Vibration.vibrate(amplitude: 20, duration: 30);
+
           fn();
         });
   }

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
+import 'package:dailythings/sqflite/journal/journal_db.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,16 +25,29 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
     return Scaffold(
       backgroundColor: DailyThingsColors.backgroundColor,
       floatingActionButton: GestureDetector(
-        onTap: () {
-          if (!_isContentAvailable) {
-            Navigator.pop(context);
+        onTap: () async {
+          if (mounted) {
+            if (!_isContentAvailable) {
+              Navigator.pop(context);
+            } else {
+              final res = await JournalDB().createJournal(
+                  title: _titleController.text,
+                  dayKey: widget.id,
+                  description: _detailsController.text);
+
+              if (res != 0) {
+                _titleController.clear();
+                _detailsController.clear();
+                Navigator.pop(context);
+              }
+            }
           }
         },
         child: Container(
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(100)),
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: Icon(
               _isContentAvailable ? Icons.check : Icons.close,
               size: 15,
@@ -91,6 +105,7 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
                         selectionWidthStyle: BoxWidthStyle.tight,
                         selectionHeightStyle: BoxHeightStyle.tight,
                         maxLines: 2,
+                        minLines: 1,
                         decoration: const InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             border: InputBorder.none,
@@ -112,7 +127,7 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
                         scrollPadding: EdgeInsets.zero,
                         style: TextStyles.body,
                         keyboardType: TextInputType.multiline,
-                        minLines: 2,
+                        minLines: 50,
                         maxLines: 400,
                         selectionWidthStyle: BoxWidthStyle.tight,
                         decoration: const InputDecoration(

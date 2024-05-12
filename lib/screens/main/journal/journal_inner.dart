@@ -18,6 +18,7 @@ class _JournalInnerState extends ConsumerState<JournalInner> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [
@@ -49,7 +50,12 @@ class _JournalInnerState extends ConsumerState<JournalInner> {
           WriteJournal(
             selectedId: _selectedId,
           ),
-          PreviousJournals(selectedId: _selectedId)
+          PreviousJournals(selectedId: _selectedId),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 200,
+            ),
+          ),
         ],
       ),
     );

@@ -3,14 +3,21 @@ import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/images.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/screens/writer/writer_screen.dart';
+import 'package:dailythings/state/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
 
-class WriteJournal extends StatelessWidget {
+class WriteJournal extends ConsumerStatefulWidget {
   final String selectedId;
   const WriteJournal({super.key, required this.selectedId});
 
+  @override
+  ConsumerState<WriteJournal> createState() => _WriteJournalState();
+}
+
+class _WriteJournalState extends ConsumerState<WriteJournal> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -25,13 +32,13 @@ class WriteJournal extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: Image.asset(DailyThingsImages.write)),
             ),
-            selectedId != ""
+            widget.selectedId == ref.watch(currentDateProvider).id
                 ? Animate(
                     effects: const [FadeEffect()],
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: DailyThingsColors.themeBeige,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
@@ -58,7 +65,7 @@ class WriteJournal extends StatelessWidget {
                                       context,
                                       PageTransition(
                                           child: WriterScreen(
-                                            id: selectedId,
+                                            id: widget.selectedId,
                                           ),
                                           type:
                                               PageTransitionType.bottomToTop));
@@ -71,7 +78,9 @@ class WriteJournal extends StatelessWidget {
                       ),
                     ),
                   )
-                : Animate(
+                : const SizedBox.shrink(),
+            widget.selectedId == ""
+                ? Animate(
                     effects: const [
                       ScaleEffect(delay: Duration(milliseconds: 90))
                     ],
@@ -106,6 +115,7 @@ class WriteJournal extends StatelessWidget {
                       ),
                     ),
                   )
+                : const SizedBox.shrink()
           ],
         ),
       ),

@@ -18,7 +18,7 @@ class HomeInner extends ConsumerWidget {
       physics: const BouncingScrollPhysics(),
       slivers: [
         SliverAppBar.large(
-          title: Text(
+          title: const Text(
             "DailyThings",
             style: TextStyles.subheading,
           ),
