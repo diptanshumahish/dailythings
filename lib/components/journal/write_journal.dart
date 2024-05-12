@@ -4,7 +4,6 @@ import 'package:dailythings/constants/images.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/screens/writer/writer_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -20,29 +19,26 @@ class WriteJournal extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
         child: Column(
           children: [
-            Animate(
-              effects: const [ScaleEffect()],
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(DailyThingsImages.write)),
-            ),
+            // Animate(
+            //   effects: const [ScaleEffect()],
+            //   child: ClipRRect(
+            //       borderRadius: BorderRadius.circular(8),
+            //       child: Image.asset(DailyThingsImages.write)),
+            // ),
             selectedId != ""
                 ? Animate(
-                    effects: const [
-                      ScaleEffect(delay: Duration(milliseconds: 100)),
-                      FadeEffect()
-                    ],
+                    effects: const [FadeEffect()],
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.white.withOpacity(0.7),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Got something to say?",
@@ -61,7 +57,9 @@ class WriteJournal extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       PageTransition(
-                                          child: WriterScreen(),
+                                          child: WriterScreen(
+                                            id: selectedId,
+                                          ),
                                           type:
                                               PageTransitionType.bottomToTop));
                                 },

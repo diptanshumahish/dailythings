@@ -1,4 +1,5 @@
 import 'package:dailythings/components/journal/j_calendar_view.dart';
+import 'package:dailythings/components/journal/previous_journals.dart';
 import 'package:dailythings/components/journal/write_journal.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,8 @@ class _JournalInnerState extends ConsumerState<JournalInner> {
           ),
           WriteJournal(
             selectedId: _selectedId,
-          )
+          ),
+          PreviousJournals(selectedId: _selectedId)
         ],
       ),
     );
