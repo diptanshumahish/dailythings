@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:dailythings/components/common/mood/mood_choser.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/sqflite/journal/journal_db.dart';
@@ -10,6 +11,7 @@ import 'package:intl/intl.dart';
 bool _isContentAvailable = false;
 final TextEditingController _titleController = TextEditingController();
 final TextEditingController _detailsController = TextEditingController();
+String _responseMood = "blank";
 
 class WriterScreen extends ConsumerStatefulWidget {
   final String id;
@@ -33,7 +35,8 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
               final res = await JournalDB().createJournal(
                   title: _titleController.text,
                   dayKey: widget.id,
-                  description: _detailsController.text);
+                  description: _detailsController.text,
+                  mood: _responseMood);
 
               if (res != 0) {
                 _titleController.clear();
@@ -58,6 +61,20 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
+            SliverAppBar(
+              backgroundColor: DailyThingsColors.backgroundColor,
+              title: Text(
+                "Pen down your thoughts",
+                style: TextStyles.subheading,
+              ),
+              centerTitle: true,
+              leading: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: DailyThingsColors.themeBeige,
+                  )),
+            ),
             SliverToBoxAdapter(
               child: Padding(
                 padding:
@@ -65,6 +82,14 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    MoodChooser(
+                      moodResponse: (mood) {
+                        setState(() {
+                          _responseMood = mood;
+                        });
+                      },
+                      selectedOne: _responseMood,
+                    ),
                     Animate(
                       effects: const [FadeEffect()],
                       child: Text(

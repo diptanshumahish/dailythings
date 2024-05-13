@@ -4,12 +4,14 @@ class JournalEntry {
   final String title;
   final String description;
   final String createdTime;
+  final String mood;
 
   JournalEntry({
     required this.id,
     required this.dayKey,
     required this.title,
     required this.description,
+    required this.mood,
     required this.createdTime,
   });
 
@@ -18,6 +20,7 @@ class JournalEntry {
         dayKey: json['dayKey'] as String,
         title: json['title'] as String,
         description: json['description'] as String,
+        mood: json['mood'] as String,
         createdTime: DateTime.fromMillisecondsSinceEpoch(json['createdTime'])
             .toIso8601String(),
       );

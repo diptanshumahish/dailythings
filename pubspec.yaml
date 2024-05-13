@@ -39,6 +39,7 @@ flutter:
         - lib/assets/common/
         - assets/audio/
         - lib/assets/main/
+        - lib/assets/glyphs/
 
     fonts:
         - family: Cabinet

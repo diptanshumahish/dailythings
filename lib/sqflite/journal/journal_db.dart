@@ -12,6 +12,7 @@ class JournalDB {
       "title" TEXT NOT NULL,
       "description" TEXT NOT NULL,
       "createdTime" INTEGER NOT NULL DEFAULT (cast(strftime('%s','now') as integer )),
+      "mood" TEXT NOT NULL,
       PRIMARY KEY("id" AUTOINCREMENT)
     );""");
   }
@@ -19,11 +20,12 @@ class JournalDB {
   Future<int> createJournal(
       {required String title,
       required String dayKey,
+      required String mood,
       required String description}) async {
     final database = await DatabaseService().getDatabase();
     return await database.rawInsert('''
-    INSERT INTO $tableName (dayKey,title,description,createdTime) VALUES (?,?,?,?)
-''', [dayKey, title, description, DateTime.now().millisecondsSinceEpoch]);
+    INSERT INTO $tableName (dayKey,title,description,createdTime,mood) VALUES (?,?,?,?,?)
+''', [dayKey, title, description, DateTime.now().millisecondsSinceEpoch, mood]);
   }
 
   Future<List<JournalEntry>> fetchJournal(String dayKey) async {

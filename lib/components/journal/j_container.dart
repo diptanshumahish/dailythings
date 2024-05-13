@@ -1,5 +1,6 @@
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
+import 'package:dailythings/utils/calendar/glyph/return_glyph.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,11 +9,13 @@ class JContainer extends StatelessWidget {
   final String title;
   final String description;
   final String time;
+  final String mood;
   const JContainer({
     super.key,
     required this.dayKey,
     required this.title,
     required this.description,
+    required this.mood,
     required this.time,
   });
 
@@ -35,16 +38,16 @@ class JContainer extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.watch_later,
+                const Icon(
+                  Icons.hourglass_bottom_rounded,
                   color: DailyThingsColors.tertiaryGray,
                   size: 12,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Text(
-                  DateFormat('hh:mm a').format(DateTime.parse(time)),
+                  DateFormat('hh : mm a').format(DateTime.parse(time)),
                   style: TextStyles.body,
                 ),
               ],
@@ -52,33 +55,36 @@ class JContainer extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.book_rounded,
                   color: DailyThingsColors.themeBeige,
                   size: 18,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyles.heading,
+                Flexible(
+                  child: Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.heading,
+                  ),
                 ),
               ],
-            ),
-            Divider(
-              color: DailyThingsColors.themeOrange.withOpacity(0.3),
-              indent: 0,
-              endIndent: 0,
             ),
             Text(
               description,
               style: TextStyles.body,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
-            )
+            ),
+            Divider(
+              color: DailyThingsColors.themeOrange.withOpacity(0.3),
+              indent: 0,
+              endIndent: 0,
+            ),
+            returnGlyphDataMood(mood)
           ],
         ),
       ),

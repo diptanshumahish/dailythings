@@ -45,6 +45,7 @@ class OnboardTime extends ConsumerWidget {
                     await addToLocalStorage(
                         DailyThingsKeys.dailyReminderTimeKey,
                         "${t.hour}:${t.minute}");
+                    await addToLocalStorage(DailyThingsKeys.allAdded, "OK");
 
                     Navigator.pushAndRemoveUntil(
                         context,

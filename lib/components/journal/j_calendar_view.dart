@@ -141,12 +141,12 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
                             _cal = getCalendarView(_month, _year);
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Prev",
                           style: TextStyles.subheading,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       InkWell(
@@ -161,7 +161,7 @@ class _JCalendarViewState extends ConsumerState<JCalendarView> {
                             _cal = getCalendarView(_month, _year);
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Next",
                           style: TextStyles.subheading,
                         ),

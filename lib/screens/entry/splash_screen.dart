@@ -20,18 +20,9 @@ class SplashScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     Future<int> initialCheck() async {
-      String? check1 =
-          await getDataFromLocalStorage(DailyThingsKeys.userNameKey);
-      String? check2 =
-          await getDataFromLocalStorage(DailyThingsKeys.userAgeKey);
-      String? check3 =
-          await getDataFromLocalStorage(DailyThingsKeys.userGenderKey);
-      String? check4 =
-          await getDataFromLocalStorage(DailyThingsKeys.userMartialStatus);
-      if (check1 != null &&
-          check2 != null &&
-          check3 != null &&
-          check4 != null) {
+      String? check = await getDataFromLocalStorage(DailyThingsKeys.allAdded);
+
+      if (check != null) {
         return 1;
       }
       return 0;
@@ -106,13 +97,6 @@ class SplashScreen extends StatelessWidget {
                                   (route) => false);
                               return;
                             }
-                            // await DTNotificationService().scheduledNotification(
-                            //     body:
-                            //         "Tera notification is very large but i think we can get it quite small if we want to and this is nice, how nice if you ask, well i think not that nice but its getting large enough to be here",
-                            //     id: 23,
-                            //     payload: "90",
-                            //     title: "Dailythings notification",
-                            //     scheduledNotificationDateTime: DateTime.now());
 
                             Navigator.pushAndRemoveUntil(
                                 context,
@@ -121,24 +105,6 @@ class SplashScreen extends StatelessWidget {
                                     curve: Curves.easeInOut,
                                     type: PageTransitionType.rightToLeft),
                                 (route) => false);
-                            // bool data =
-                            //     await AwesomeNotifications().createNotification(
-                            //   content: NotificationContent(
-                            //     id: 20,
-                            //     channelKey: 'DT_BASIC',
-                            //     title: 'Just in time!',
-                            //     body:
-                            //         'This notification was scheduled to shows at ',
-                            //     wakeUpScreen: true,
-                            //     category: NotificationCategory.Reminder,
-                            //     notificationLayout: NotificationLayout.BigText,
-                            //     backgroundColor: DailyThingsColors.themeOrange,
-                            //     displayOnBackground: false,
-                            //     payload: {'uuid': 'uuid-test'},
-                            //     actionType: ActionType.KeepOnTop,
-                            //   ),
-                            // );
-                            // print(data);
                           },
                           child: Center(
                             child: Animate(effects: const [

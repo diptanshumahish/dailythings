@@ -1,0 +1,127 @@
+import 'package:dailythings/components/common/arrangements/flex_items.dart';
+import 'package:dailythings/components/common/buttons/offset_full_button.dart';
+import 'package:dailythings/constants/colors.dart';
+import 'package:dailythings/constants/text_styles.dart';
+import 'package:dailythings/sqflite/journal/journal_db.dart';
+import 'package:dailythings/utils/calendar/glyph/return_glyph.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
+class FullJournalView extends StatelessWidget {
+  final int journalId;
+  final String title;
+  final String time;
+  final String mood;
+  final String details;
+  const FullJournalView(
+      {super.key,
+      required this.journalId,
+      required this.title,
+      required this.time,
+      required this.mood,
+      required this.details});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: DailyThingsColors.backgroundColor,
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                centerTitle: true,
+                backgroundColor: DailyThingsColors.backgroundColor,
+                title: Text(
+                  title,
+                  style: TextStyles.subheading,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: DailyThingsColors.tertiaryGray,
+                    )),
+              ),
+              SliverToBoxAdapter(
+                child: Animate(
+                  effects: [ScaleEffect()],
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: FlexItems(widgetList: [
+                      Animate(
+                        effects: [
+                          FadeEffect(delay: Duration(milliseconds: 100))
+                        ],
+                        child: Text(
+                          title,
+                          style: TextStyles.heading,
+                        ),
+                      ),
+                      Animate(
+                        effects: [
+                          FadeEffect(delay: Duration(milliseconds: 200))
+                        ],
+                        child: Text(
+                          time,
+                          style: TextStyles.bodyNavbarActive,
+                        ),
+                      ),
+                      Animate(
+                        effects: [
+                          FadeEffect(delay: Duration(milliseconds: 300))
+                        ],
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: returnGlyphDataMood(mood),
+                        ),
+                      ),
+                      Animate(effects: [
+                        FadeEffect(delay: Duration(milliseconds: 350))
+                      ], child: Divider()),
+                      Animate(
+                        effects: [
+                          FadeEffect(delay: Duration(milliseconds: 400))
+                        ],
+                        child: Text(
+                          details,
+                          style: TextStyles.body,
+                        ),
+                      ),
+                      Animate(
+                        effects: [
+                          FadeEffect(delay: Duration(milliseconds: 500))
+                        ],
+                        child: OffsetFullButton(
+                          content: "Delete journal",
+                          fn: () async {
+                            await JournalDB().delete(journalId);
+                            Navigator.pop(context);
+                          },
+                          icon: Icons.delete,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Animate(
+                        effects: [
+                          FadeEffect(delay: Duration(milliseconds: 400))
+                        ],
+                        child: Text(
+                          "Zen thinks deleting a journal is not a good idea, nor editing on it, journals are never perfect, they are just a memory, a reflection of everything that happens ✨",
+                          style: TextStyles.italic,
+                        ),
+                      )
+                    ], space: 8),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
+  }
+}
