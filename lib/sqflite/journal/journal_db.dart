@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class JournalDB {
   final tableName = 'journal';
+  final dbName = "journal.db";
 
   Future<void> createTable(Database database) async {
     await database.execute("""CREATE TABLE IF NOT EXISTS $tableName (
@@ -22,14 +23,14 @@ class JournalDB {
       required String dayKey,
       required String mood,
       required String description}) async {
-    final database = await DatabaseService().getDatabase();
+    final database = await DatabaseService().getDatabase(dbName);
     return await database.rawInsert('''
     INSERT INTO $tableName (dayKey,title,description,createdTime,mood) VALUES (?,?,?,?,?)
 ''', [dayKey, title, description, DateTime.now().millisecondsSinceEpoch, mood]);
   }
 
   Future<List<JournalEntry>> fetchJournal(String dayKey) async {
-    final database = await DatabaseService().getDatabase();
+    final database = await DatabaseService().getDatabase(dbName);
     final journals = await database.rawQuery('''
     SELECT * FROM $tableName WHERE dayKey = ?
   ''', [dayKey]);
@@ -37,7 +38,7 @@ class JournalDB {
   }
 
   Future<int> delete(int id) async {
-    final database = await DatabaseService().getDatabase();
+    final database = await DatabaseService().getDatabase(dbName);
     final numberOfDeleted = await database.rawDelete('''
         DELETE FROM $tableName WHERE id = ?
 ''', [id]);

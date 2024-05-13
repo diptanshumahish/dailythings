@@ -1,4 +1,5 @@
 import 'package:dailythings/components/common/top_bar.dart';
+import 'package:dailythings/components/settings/settings_items.dart';
 import 'package:dailythings/components/settings/settings_top.dart';
 import 'package:dailythings/constants/images.dart';
 import 'package:dailythings/constants/text_styles.dart';
@@ -25,7 +26,8 @@ class SettingsInner extends ConsumerWidget {
           expandedHeight: size.height / 2.5,
           flexibleSpace: const TopBar(imgLink: DailyThingsImages.settings),
         ),
-        const SettingsTop()
+        const SettingsTop(),
+        SettingsItems()
       ],
     );
   }

@@ -5,11 +5,11 @@ import 'package:sqflite/sqflite.dart';
 class DatabaseService {
   Database? _database;
 
-  Future<Database> getDatabase() async {
+  Future<Database> getDatabase(String name) async {
     if (_database != null) {
       return _database!;
     }
-    _database = await _initialize();
+    _database = await _initialize(name);
     return _database!;
   }
 
@@ -18,8 +18,8 @@ class DatabaseService {
     return join(path, name);
   }
 
-  Future<Database> _initialize() async {
-    final path = await getFullPath("journal.db");
+  Future<Database> _initialize(String name) async {
+    final path = await getFullPath(name);
     var database = await openDatabase(path,
         version: 1, onCreate: create, singleInstance: true);
 

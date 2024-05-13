@@ -63,14 +63,14 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
           slivers: [
             SliverAppBar(
               backgroundColor: DailyThingsColors.backgroundColor,
-              title: Text(
+              title: const Text(
                 "Pen down your thoughts",
                 style: TextStyles.subheading,
               ),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios_new_rounded,
                     color: DailyThingsColors.themeBeige,
                   )),
@@ -131,6 +131,8 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
                         selectionHeightStyle: BoxHeightStyle.tight,
                         maxLines: 2,
                         minLines: 1,
+                        spellCheckConfiguration:
+                            SpellCheckConfiguration.disabled(),
                         decoration: const InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             border: InputBorder.none,
@@ -148,6 +150,8 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
                       ],
                       child: TextFormField(
                         controller: _detailsController,
+                        spellCheckConfiguration:
+                            SpellCheckConfiguration.disabled(),
                         selectionHeightStyle: BoxHeightStyle.tight,
                         scrollPadding: EdgeInsets.zero,
                         style: TextStyles.body,
