@@ -21,7 +21,7 @@ class SettingsItem extends StatelessWidget {
         fn();
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

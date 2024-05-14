@@ -27,7 +27,7 @@ class SettingsInner extends ConsumerWidget {
           flexibleSpace: const TopBar(imgLink: DailyThingsImages.settings),
         ),
         const SettingsTop(),
-        SettingsItems()
+        const SettingsItems()
       ],
     );
   }

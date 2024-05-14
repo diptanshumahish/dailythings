@@ -8,6 +8,7 @@ abstract class DailyThingsImages {
   static const write = "lib/assets/main/write.png";
   static const cloud = "lib/assets/main/cloud.png";
   static const settings = "lib/assets/main/dtsettings.png";
+  static const dailyPage = "lib/assets/main/dailypage.png";
 
   //glyphs
   static const love = "lib/assets/glyphs/love.png";

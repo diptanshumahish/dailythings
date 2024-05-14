@@ -33,7 +33,10 @@ const _screens = [
 ];
 
 class OnBoardHome extends ConsumerStatefulWidget {
-  const OnBoardHome({super.key});
+  final String? notFirstTimeTitle;
+  final String? notFirstTimeDetails;
+  const OnBoardHome(
+      {super.key, this.notFirstTimeTitle, this.notFirstTimeDetails});
 
   @override
   ConsumerState<OnBoardHome> createState() => _OnBoardHomeState();
@@ -64,12 +67,13 @@ class _OnBoardHomeState extends ConsumerState<OnBoardHome> {
                       height: 120,
                     ),
                   ),
-                  const Text(
-                    "First Things first!",
+                  Text(
+                    widget.notFirstTimeTitle ?? "First Things first!",
                     style: TextStyles.splashHeading,
                   ),
-                  const Text(
-                    "Let's know each other a bit :)",
+                  Text(
+                    widget.notFirstTimeDetails ??
+                        "Let's know each other a bit :)",
                     style: TextStyles.subheading,
                   ),
                   AnimatedSwitcher(

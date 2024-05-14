@@ -57,7 +57,9 @@ class OffsetFullButton extends StatelessWidget {
                       icon != null
                           ? Icon(
                               icon,
-                              color: Colors.black,
+                              color: darkvariant!
+                                  ? DailyThingsColors.themeBeige
+                                  : Colors.black,
                               size: size.height < 840 ? 15 : 18,
                             )
                           : const SizedBox.shrink(),

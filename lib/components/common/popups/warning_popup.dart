@@ -4,11 +4,20 @@ import 'package:flutter/material.dart';
 
 class WarningPopup extends StatelessWidget {
   final String error;
-  const WarningPopup({super.key, required this.error});
+  final VoidCallback? fn;
+  final String? errorHeading;
+  final String? ctaText;
+  final IconData? icon;
+  const WarningPopup(
+      {super.key,
+      required this.error,
+      this.fn,
+      this.errorHeading,
+      this.icon,
+      this.ctaText});
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
@@ -27,34 +36,49 @@ class WarningPopup extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.error,
                         color: Colors.white,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
-                        "Umm there's an issue",
+                        errorHeading ?? "Umm there's an issue",
                         style: TextStyles.heading,
                       ),
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   Text(
                     error,
                     style: TextStyles.subheading,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    height: 20,
+                  const SizedBox(
+                    height: 10,
                   ),
                   OffsetFullButton(
-                      icon: Icons.cancel_sharp,
-                      content: "close",
+                      icon: icon ?? Icons.cancel_sharp,
+                      content: ctaText ?? "close",
                       fn: () {
+                        if (fn != null) {
+                          fn!();
+                        }
                         Navigator.pop(context);
-                      })
+                      }),
+                  fn != null
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: OffsetFullButton(
+                              icon: Icons.cancel_sharp,
+                              content: "Close",
+                              darkvariant: true,
+                              fn: () {
+                                Navigator.pop(context);
+                              }),
+                        )
+                      : const SizedBox.shrink()
                 ],
               ),
             ),

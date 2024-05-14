@@ -45,4 +45,11 @@ class JournalDB {
 
     return numberOfDeleted;
   }
+
+  Future<int> deleteAll() async {
+    final database = await DatabaseService().getDatabase(dbName);
+    final numberOfDeleted =
+        await database.rawDelete('''DELETE FROM $tableName''');
+    return numberOfDeleted;
+  }
 }
