@@ -32,7 +32,10 @@ class OffsetFullButton extends StatelessWidget {
                   ? DailyThingsColors.backgroundColor
                   : DailyThingsColors.themeOrange,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.black),
+              border: Border.all(
+                  color: darkvariant!
+                      ? DailyThingsColors.themeBeige
+                      : Colors.black),
               boxShadow: const [
                 BoxShadow(
                   color: Colors.white,

@@ -27,7 +27,16 @@ class SettingsInner extends ConsumerWidget {
           flexibleSpace: const TopBar(imgLink: DailyThingsImages.settings),
         ),
         const SettingsTop(),
-        const SettingsItems()
+        const SettingsItems(),
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Text(
+              "You are using our version 0.0.1, this is one of our very first releases, we will be rolling out many more features soon ✨",
+              style: TextStyles.italic,
+            ),
+          ),
+        )
       ],
     );
   }

@@ -20,6 +20,7 @@ class TopBar extends ConsumerWidget {
           effects: [ScaleEffect(curve: Curves.easeInOut)],
           child: Image.asset(
             height: size.height / 2.5,
+            width: size.width,
             imgLink,
             fit: BoxFit.cover,
           ),

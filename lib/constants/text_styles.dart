@@ -34,6 +34,10 @@ abstract class TextStyles {
     fontSize: 14,
     color: DailyThingsColors.tertiaryGray,
   );
+  static const bodyInvert = TextStyle(
+    fontSize: 14,
+    color: DailyThingsColors.backgroundColor,
+  );
   static const bodyNavbarActive = TextStyle(
     fontSize: 14,
     color: DailyThingsColors.themeOrange,
@@ -52,4 +56,6 @@ abstract class TextStyles {
 
   static const italic = TextStyle(
       fontStyle: FontStyle.italic, color: DailyThingsColors.tertiaryGray);
+  static const italicInvert = TextStyle(
+      fontStyle: FontStyle.italic, color: DailyThingsColors.backgroundColor);
 }

@@ -26,7 +26,7 @@ class HomeInner extends ConsumerWidget {
           floating: true,
           leading: const SizedBox.shrink(),
           backgroundColor: Colors.black,
-          expandedHeight: size.height / 2.5,
+          expandedHeight: size.height / 3,
           flexibleSpace: const TopBar(imgLink: DailyThingsImages.home),
         ),
         const HomeTop(

@@ -25,8 +25,9 @@ class FlexItems extends StatelessWidget {
 
     if (horizontal == false) {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: spacerList,
       );
     } else {
