@@ -15,12 +15,14 @@ class CommonInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       minLines: 1,
+      controller: controller,
       maxLines: 4,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
 
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: DailyThingsColors.themeBeige.withOpacity(0.3))),
@@ -29,7 +31,8 @@ class CommonInput extends StatelessWidget {
                 color: DailyThingsColors.themeBeige.withOpacity(0.9))),
         labelText: labelText,
         labelStyle: const TextStyle(color: Colors.white54),
-        fillColor: const Color(0xFF232222), // Slight gray background color
+        fillColor:
+            DailyThingsColors.backgroundColor, // Slight gray background color
         filled: true, // Apply background color
         border: const OutlineInputBorder(borderSide: BorderSide.none),
       ),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:dailythings/components/common/mood/mood_choser.dart';
+import 'package:dailythings/components/common/popups/warning_popup.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/sqflite/journal/journal_db.dart';
@@ -32,16 +33,24 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
             if (!_isContentAvailable) {
               Navigator.pop(context);
             } else {
-              final res = await JournalDB().createJournal(
-                  title: _titleController.text,
-                  dayKey: widget.id,
-                  description: _detailsController.text,
-                  mood: _responseMood);
+              if (_titleController.text.isNotEmpty &&
+                  _detailsController.text.isNotEmpty) {
+                final res = await JournalDB().createJournal(
+                    title: _titleController.text,
+                    dayKey: widget.id,
+                    description: _detailsController.text,
+                    mood: _responseMood);
 
-              if (res != 0) {
-                _titleController.clear();
-                _detailsController.clear();
-                Navigator.pop(context);
+                if (res != 0) {
+                  _titleController.clear();
+                  _detailsController.clear();
+                  Navigator.pop(context);
+                }
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) => const WarningPopup(
+                        error: "You haven't entered all fields"));
               }
             }
           }

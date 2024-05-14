@@ -28,7 +28,7 @@ class DailyDB {
       required String description}) async {
     final database = await DatabaseService().getDatabase(dbName);
     return await database.rawInsert('''
-    INSERT INTO $tableName (dayKey,title,description,createdTime,category,completionTime) VALUES (?,?,?,?,?.?)
+    INSERT INTO $tableName (dayKey,title,description,createdTime,category,completionTime) VALUES (?,?,?,?,?,?)
 ''', [
       dayKey,
       title,
@@ -41,10 +41,27 @@ class DailyDB {
 
   Future<List<DailyTaskEntry>> fetchTasks(String dayKey) async {
     final database = await DatabaseService().getDatabase(dbName);
-    final journals = await database.rawQuery('''
-    SELECT * FROM $tableName WHERE dayKey = ?
-  ''', [dayKey]);
-    return journals.map((j) => DailyTaskEntry.fromJson(j)).toList();
+    if (database != null) {
+      try {
+        final journals = await database.rawQuery('''
+        SELECT * FROM $tableName WHERE dayKey = ?
+      ''', [dayKey]);
+        return journals.map((j) => DailyTaskEntry.fromJson(j)).toList();
+      } on DatabaseException catch (e) {
+        createTable(database);
+        return [];
+      }
+    } else {
+      return [];
+    }
+  }
+
+  Future<int> updateTask(int id, int comp) async {
+    final database = await DatabaseService().getDatabase(dbName);
+    final data = await database.rawUpdate('''
+  UPDATE $tableName SET isCompleted = ? WHERE id = ?
+''', [comp, id]);
+    return data;
   }
 
   Future<int> delete(int id) async {

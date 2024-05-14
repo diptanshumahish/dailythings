@@ -4,7 +4,17 @@ import 'package:flutter/material.dart';
 
 class TaskContainer extends StatelessWidget {
   final bool isComplete;
-  const TaskContainer({super.key, required this.isComplete});
+  final String title;
+  final String desc;
+  final String completionTime;
+  final String category;
+  const TaskContainer(
+      {super.key,
+      required this.isComplete,
+      required this.title,
+      required this.desc,
+      required this.completionTime,
+      required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +44,25 @@ class TaskContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Groceries",
+              title,
               style:
                   !isComplete ? TextStyles.headingInvert : TextStyles.heading,
             ),
             Text(
-              "Get some groceries",
+              desc,
               style: isComplete
                   ? TextStyles.bodyNavbarActive
                   : TextStyles.bodyInvert,
             ),
             Text(
-              "To complete by 12:30pm",
+              completionTime,
               style: isComplete ? TextStyles.italic : TextStyles.italicInvert,
+            ),
+            Text(
+              isComplete ? "Wohoo task is complete" : "yet to complete task",
+              style: isComplete
+                  ? TextStyles.bodyNavbarActive
+                  : TextStyles.bodyInvert,
             )
           ],
         ),

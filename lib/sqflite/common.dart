@@ -1,3 +1,4 @@
+import 'package:dailythings/sqflite/daily/daily_db.dart';
 import 'package:dailythings/sqflite/journal/journal_db.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -20,12 +21,24 @@ class DatabaseService {
 
   Future<Database> _initialize(String name) async {
     final path = await getFullPath(name);
+    // print(path);
     var database = await openDatabase(path,
-        version: 1, onCreate: create, singleInstance: true);
+        version: 1,
+        onCreate: name == "journal.db" ? create : add,
+        singleInstance: true);
 
     return database;
   }
 
-  Future<void> create(Database database, int version) async =>
+  Future<void> create(
+    Database database,
+    int version,
+  ) async =>
       await JournalDB().createTable(database);
+
+  Future<void> add(
+    Database database,
+    int version,
+  ) async =>
+      await DailyDB().createTable(database);
 }

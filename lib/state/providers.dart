@@ -3,6 +3,7 @@ import 'package:dailythings/state/current/current_date.dart';
 import 'package:dailythings/state/journal/selected_date.dart';
 import 'package:dailythings/state/onboard_Tabs/onboard_tabs.dart';
 import 'package:dailythings/state/user/user.dart';
+import 'package:dailythings/utils/calendar/calendar_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final onboardTabsProvider =
@@ -20,4 +21,4 @@ final selectedDateProvider =
 
 final currentDateProvider =
     StateNotifierProvider<CurrentDateNotifier, CurrentDate>(
-        (ref) => CurrentDateNotifier(CurrentDate(id: "")));
+        (ref) => CurrentDateNotifier());

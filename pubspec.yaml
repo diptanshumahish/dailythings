@@ -2,7 +2,7 @@ name: dailythings
 description: "Maintain your life"
 
 publish_to: "none"
-version: 1.0.0+1
+version: 1.0.3+2
 
 environment:
     sdk: ">=3.3.0 <4.0.0"
@@ -23,6 +23,8 @@ dependencies:
     intl: ^0.19.0
     sqflite: ^2.3.3+1
     vibration: ^1.8.4
+    flutter_hooks: ^0.20.5
+    upgrader: ^10.3.0
 
 dev_dependencies:
     flutter_test:

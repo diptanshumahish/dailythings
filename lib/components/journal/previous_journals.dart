@@ -41,8 +41,9 @@ class _PreviousJournalsState extends ConsumerState<PreviousJournals> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final idHere = ref.watch(selectedDateProvider);
-    fetchJournal(idHere.id);
+    ref.listen(selectedDateProvider, (previous, next) {
+      fetchJournal(next.id);
+    });
 
     return SliverToBoxAdapter(
         child: widget.selectedId.isEmpty

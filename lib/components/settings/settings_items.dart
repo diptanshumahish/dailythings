@@ -3,6 +3,7 @@ import 'package:dailythings/components/common/popups/warning_popup.dart';
 import 'package:dailythings/components/settings/settings_item.dart';
 import 'package:dailythings/components/settings/settings_seperator.dart';
 import 'package:dailythings/screens/onbaord/onbaord_home.dart';
+import 'package:dailythings/sqflite/daily/daily_db.dart';
 import 'package:dailythings/sqflite/journal/journal_db.dart';
 import 'package:dailythings/state/providers.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +68,24 @@ class SettingsItems extends ConsumerWidget {
               details: "This will delete all journals permanently",
               icon: Icons.delete_forever),
           SettingsItem(
-              fn: () {},
-              title: "Delete all Daily Tasks",
-              details: "This deletes all daily entries",
-              icon: Icons.delete_forever)
+              fn: () {
+                showDialog(
+                  context: context,
+                  barrierColor: Colors.black87,
+                  builder: (context) => WarningPopup(
+                      fn: () {
+                        DailyDB().deleteAll();
+                      },
+                      ctaText: "Go ahead delete",
+                      icon: Icons.delete_forever_rounded,
+                      errorHeading: "Are you sure of this?",
+                      error:
+                          "This will delete all your previous daily tasks, everything till date, this action is not recoverable either. It might not be a good idea to do so I guess."),
+                );
+              },
+              title: "Delete all daily tasks",
+              details: "This will delete all daily items permanently",
+              icon: Icons.delete_forever),
         ], space: 8),
       ),
     );

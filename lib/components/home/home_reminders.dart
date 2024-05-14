@@ -1,15 +1,49 @@
-import 'package:dailythings/components/common/buttons/offset_full_button.dart';
+import 'package:dailythings/components/home/reminder_item.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dailythings/sqflite/daily/daily_db.dart';
+import 'package:dailythings/sqflite/models/daily_task_entry.dart';
+import 'package:dailythings/state/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeReminders extends StatelessWidget {
-  const HomeReminders({super.key});
+List<DailyTaskEntry> _taskList = [];
+
+class HomeReminders extends ConsumerStatefulWidget {
+  final String id;
+  const HomeReminders({super.key, required this.id});
+
+  @override
+  ConsumerState<HomeReminders> createState() => _HomeRemindersState();
+}
+
+class _HomeRemindersState extends ConsumerState<HomeReminders> {
+  fetchTasks(String id) async {
+    if (id.isEmpty) return;
+
+    final jb = await DailyDB().fetchTasks(id);
+    setState(() {
+      _taskList = jb;
+    });
+  }
+
+  @override
+  void initState() {
+    fetchTasks(widget.id);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(currentDateProvider, (previous, next) {
+      if (previous != null) {
+        fetchTasks(previous.id);
+      } else {
+        fetchTasks(next.id);
+      }
+    });
+
     return SliverToBoxAdapter(
       child: Animate(
         effects: const [ScaleEffect(curve: Curves.easeInOut)],
@@ -17,7 +51,7 @@ class HomeReminders extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
           child: Column(
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -32,7 +66,7 @@ class HomeReminders extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Container(
@@ -42,78 +76,21 @@ class HomeReminders extends StatelessWidget {
                         color: DailyThingsColors.themeBeige.withOpacity(0.3)),
                     color: DailyThingsColors.backgroundColor,
                     borderRadius: BorderRadius.circular(5)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Get my running task done now",
-                            style: TextStyles.bodyNavbarActive,
-                          ),
-                          Text(
-                            "12th July",
-                            style: TextStyles.italic,
-                          )
-                        ],
+                child: _taskList.isNotEmpty
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _taskList
+                            .map((e) => ReminderItem(
+                                completionTime: e.completionTime,
+                                desc: e.description))
+                            .toList(),
+                      )
+                    : Center(
+                        child: Text(
+                          "No reminders for today, set a few from the daily tab✨",
+                          style: TextStyles.body,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Jump off the roof",
-                                style: TextStyles.bodyNavbarActive,
-                              ),
-                              Text(
-                                "12th August",
-                                style: TextStyles.italic,
-                              )
-                            ],
-                          ),
-                          // Divider(
-                          //   color: Colors.white54,
-                          // )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  "Find something cool for running and also a long text here which will overflow",
-                                  style: TextStyles.bodyNavbarActive,
-                                ),
-                              ),
-                              Text(
-                                "12th August",
-                                style: TextStyles.italic,
-                              )
-                            ],
-                          ),
-                          // Divider(
-                          //   color: Colors.white54,
-                          // )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),

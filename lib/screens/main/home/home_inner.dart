@@ -2,8 +2,10 @@ import 'package:dailythings/components/common/top_bar.dart';
 import 'package:dailythings/components/home/home_reminders.dart';
 import 'package:dailythings/components/home/home_top.dart';
 import 'package:dailythings/components/home/periods_reminder.dart';
+import 'package:dailythings/components/home/thanks.dart';
 import 'package:dailythings/constants/images.dart';
 import 'package:dailythings/constants/text_styles.dart';
+import 'package:dailythings/state/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,6 +15,7 @@ class HomeInner extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    final currentId = ref.watch(currentDateProvider);
 
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
@@ -32,8 +35,11 @@ class HomeInner extends ConsumerWidget {
         const HomeTop(
           key: Key("home inner"),
         ),
-        const HomeReminders(),
-        PeriodsReminder(),
+        HomeReminders(
+          id: currentId.id,
+        ),
+        // PeriodsReminder(),
+        Congrats(),
         SliverToBoxAdapter(
           child: SizedBox(
             height: 100,

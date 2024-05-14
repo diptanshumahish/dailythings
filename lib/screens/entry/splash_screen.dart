@@ -2,18 +2,40 @@ import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/images.dart';
 import 'package:dailythings/constants/keys.dart';
 import 'package:dailythings/constants/text_styles.dart';
-import 'package:dailythings/screens/main/home.dart';
 import 'package:dailythings/screens/onbaord/onbaord_home.dart';
 import 'package:dailythings/screens/onbaord/welcome_onboarded_user.dart';
+import 'package:dailythings/state/providers.dart';
+import 'package:dailythings/utils/calendar/calendar_view.dart';
 import 'package:dailythings/utils/local_storage.dart';
-import 'package:dailythings/utils/notif_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:timezone/timezone.dart';
 
-class SplashScreen extends StatelessWidget {
+CalendarOutPut _cal =
+    CalendarOutPut(month: 1, data: [], year: 000, currentDayId: "");
+
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  setInitialView() {
+    final now = DateTime.now();
+
+    setState(() {
+      _cal = getCalendarView(now.month, now.year);
+    });
+  }
+
+  @override
+  void initState() {
+    setInitialView();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +49,13 @@ class SplashScreen extends StatelessWidget {
       }
       return 0;
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(currentDateProvider.notifier).updateID(_cal.currentDayId);
+        ref.read(selectedDateProvider.notifier).updateID(_cal.currentDayId);
+      }
+    });
 
     return Scaffold(
       backgroundColor: DailyThingsColors.backgroundColor,
