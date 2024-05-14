@@ -17,7 +17,7 @@ class TopBar extends ConsumerWidget {
         background: Stack(
       children: [
         Animate(
-          effects: [ScaleEffect(curve: Curves.easeInOut)],
+          effects: const [ScaleEffect(curve: Curves.easeInOut)],
           child: Image.asset(
             height: size.height / 2.5,
             width: size.width,

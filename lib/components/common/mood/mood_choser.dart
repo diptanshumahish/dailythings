@@ -17,11 +17,11 @@ class MoodChooser extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "How are you feeling?",
             style: TextStyles.subheading,
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Wrap(

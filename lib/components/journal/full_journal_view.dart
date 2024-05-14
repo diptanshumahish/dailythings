@@ -41,19 +41,19 @@ class FullJournalView extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back_ios,
                       color: DailyThingsColors.tertiaryGray,
                     )),
               ),
               SliverToBoxAdapter(
                 child: Animate(
-                  effects: [ScaleEffect()],
+                  effects: const [ScaleEffect()],
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: FlexItems(widgetList: [
                       Animate(
-                        effects: [
+                        effects: const [
                           FadeEffect(delay: Duration(milliseconds: 100))
                         ],
                         child: Text(
@@ -62,7 +62,7 @@ class FullJournalView extends StatelessWidget {
                         ),
                       ),
                       Animate(
-                        effects: [
+                        effects: const [
                           FadeEffect(delay: Duration(milliseconds: 200))
                         ],
                         child: Text(
@@ -71,7 +71,7 @@ class FullJournalView extends StatelessWidget {
                         ),
                       ),
                       Animate(
-                        effects: [
+                        effects: const [
                           FadeEffect(delay: Duration(milliseconds: 300))
                         ],
                         child: Padding(
@@ -79,11 +79,11 @@ class FullJournalView extends StatelessWidget {
                           child: returnGlyphDataMood(mood),
                         ),
                       ),
-                      Animate(effects: [
+                      Animate(effects: const [
                         FadeEffect(delay: Duration(milliseconds: 350))
-                      ], child: Divider()),
+                      ], child: const Divider()),
                       Animate(
-                        effects: [
+                        effects: const [
                           FadeEffect(delay: Duration(milliseconds: 400))
                         ],
                         child: Text(
@@ -92,7 +92,7 @@ class FullJournalView extends StatelessWidget {
                         ),
                       ),
                       Animate(
-                        effects: [
+                        effects: const [
                           FadeEffect(delay: Duration(milliseconds: 500))
                         ],
                         child: OffsetFullButton(
@@ -104,14 +104,14 @@ class FullJournalView extends StatelessWidget {
                           icon: Icons.delete,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Animate(
-                        effects: [
+                        effects: const [
                           FadeEffect(delay: Duration(milliseconds: 400))
                         ],
-                        child: Text(
+                        child: const Text(
                           "Zen thinks deleting a journal is not a good idea, nor editing on it, journals are never perfect, they are just a memory, a reflection of everything that happens ✨",
                           style: TextStyles.italic,
                         ),

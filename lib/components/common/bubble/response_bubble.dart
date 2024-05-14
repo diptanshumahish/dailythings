@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -57,7 +58,9 @@ class ResponseBubble extends StatelessWidget {
                         player.setVolume(0.6);
                         await player.play(AssetSource("audio/tick.mp3"));
                       } catch (error) {
-                        print("Error playing audio: $error");
+                        if (kDebugMode) {
+                          print("Error playing audio: $error");
+                        }
                       }
                       fn();
                     },

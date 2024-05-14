@@ -9,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final List<Widget> _pages = [
-  HomeInner(
+  const HomeInner(
     key: Key("home"),
   ),
-  JournalInner(
+  const JournalInner(
     key: Key("journal"),
   ),
-  DailyInner(
+  const DailyInner(
     key: Key("daily"),
   ),
-  SettingsInner(
+  const SettingsInner(
     key: Key("set"),
   )
 ];

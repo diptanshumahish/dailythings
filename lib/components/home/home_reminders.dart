@@ -85,7 +85,7 @@ class _HomeRemindersState extends ConsumerState<HomeReminders> {
                                 desc: e.description))
                             .toList(),
                       )
-                    : Center(
+                    : const Center(
                         child: Text(
                           "No reminders for today, set a few from the daily tab✨",
                           style: TextStyles.body,

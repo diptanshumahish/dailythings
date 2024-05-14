@@ -39,7 +39,7 @@ class MoodGlyph extends StatelessWidget {
                 image,
                 height: 20,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Text(

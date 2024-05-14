@@ -51,7 +51,7 @@ class _DailyInnerState extends ConsumerState<DailyInner> {
             });
           },
         ),
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: SizedBox(
             height: 200,
           ),

@@ -39,8 +39,8 @@ class HomeInner extends ConsumerWidget {
           id: currentId.id,
         ),
         // PeriodsReminder(),
-        Congrats(),
-        SliverToBoxAdapter(
+        const Congrats(),
+        const SliverToBoxAdapter(
           child: SizedBox(
             height: 100,
           ),

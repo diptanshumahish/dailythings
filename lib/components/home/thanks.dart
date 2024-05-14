@@ -9,21 +9,21 @@ class Congrats extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             Image.asset(
               DailyThingsImages.zen,
               height: 150,
             ),
-            Text(
+            const Text(
               "Thanks for using dailyThings",
               style: TextStyles.heading,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               "We are currently at a very beta stage, many more features are upcoming in the previous releases, stay tuned 😉. Meanwhile do test this app, and be sure to let us know about any issues you face, feedback and also suggestions for improvement",
               style: TextStyles.body,
               textAlign: TextAlign.center,

@@ -14,11 +14,11 @@ class PeriodsReminder extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Hushh, do you remember this?",
               style: TextStyles.heading,
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Container(

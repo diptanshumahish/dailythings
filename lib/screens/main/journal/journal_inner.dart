@@ -20,7 +20,7 @@ class _JournalInnerState extends ConsumerState<JournalInner> {
     return SafeArea(
       bottom: false,
       child: CustomScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         slivers: [
           const SliverToBoxAdapter(
             child: Padding(

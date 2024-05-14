@@ -23,7 +23,7 @@ class ZenBubble extends StatelessWidget {
         FadeEffect(
             delay: Duration(milliseconds: del != null ? del! : 0),
             curve: Curves.easeInOut,
-            duration: Duration(milliseconds: 700))
+            duration: const Duration(milliseconds: 700))
       ],
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),

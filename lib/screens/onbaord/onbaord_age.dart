@@ -4,6 +4,7 @@ import 'package:dailythings/constants/keys.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/state/providers.dart';
 import 'package:dailythings/utils/local_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,7 +38,9 @@ class _OnboardAgeState extends ConsumerState<OnboardAge> {
   setAge(String cat) async {
     await addToLocalStorage(DailyThingsKeys.userAgeKey, cat);
     ref.read(onboardTabsProvider.notifier).updateTab(3);
-    print(await getDataFromLocalStorage(DailyThingsKeys.userAgeKey));
+    if (kDebugMode) {
+      print(await getDataFromLocalStorage(DailyThingsKeys.userAgeKey));
+    }
   }
 
   @override
