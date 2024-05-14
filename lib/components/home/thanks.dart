@@ -24,7 +24,7 @@ class Congrats extends StatelessWidget {
               height: 10,
             ),
             const Text(
-              "We are currently at a very beta stage, many more features are upcoming in the previous releases, stay tuned 😉. Meanwhile do test this app, and be sure to let us know about any issues you face, feedback and also suggestions for improvement",
+              "We're still in early development,but exciting features are coming soon! In the meantime, we'd be thrilled if you tried the app and shared your thoughts. Let us know if you encounter any issues, have feedback on your experience, or ideas for improvement. Your input is invaluable in shaping the app's future!",
               style: TextStyles.body,
               textAlign: TextAlign.center,
             )

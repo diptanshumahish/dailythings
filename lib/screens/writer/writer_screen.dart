@@ -4,6 +4,7 @@ import 'package:dailythings/components/common/popups/warning_popup.dart';
 import 'package:dailythings/constants/colors.dart';
 import 'package:dailythings/constants/text_styles.dart';
 import 'package:dailythings/sqflite/journal/journal_db.dart';
+import 'package:dailythings/state/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +45,7 @@ class _WriterScreenState extends ConsumerState<WriterScreen> {
                 if (res != 0) {
                   _titleController.clear();
                   _detailsController.clear();
+                  ref.read(selectedDateProvider.notifier).updateID(widget.id);
                   Navigator.pop(context);
                 }
               } else {

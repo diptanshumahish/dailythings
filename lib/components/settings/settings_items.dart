@@ -9,6 +9,7 @@ import 'package:dailythings/state/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsItems extends ConsumerWidget {
   const SettingsItems({super.key});
@@ -86,6 +87,23 @@ class SettingsItems extends ConsumerWidget {
               title: "Delete all daily tasks",
               details: "This will delete all daily items permanently",
               icon: Icons.delete_forever),
+          const SizedBox(
+            height: 10,
+          ),
+          const SettingsSeparator(
+              name: "C O N T A C T", icon: Icons.contact_page),
+
+          SettingsItem(
+              fn: () {
+                launchUrl(Uri.parse(
+                    "mailto:workwithdiptanshu@gmail.com?subject=Suggestions%20for%20dailythings"));
+              },
+              title: "Suggest some changes/bugs",
+              details: "Feel free to reach us to report stuff",
+              icon: Icons.mail),
+          const SizedBox(
+            height: 200,
+          )
         ], space: 8),
       ),
     );

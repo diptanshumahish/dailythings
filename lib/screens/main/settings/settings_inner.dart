@@ -16,7 +16,7 @@ class SettingsInner extends ConsumerWidget {
       slivers: [
         SliverAppBar.large(
           title: const Text(
-            "DailyThings",
+            "Settings",
             style: TextStyles.subheading,
           ),
           stretch: true,
