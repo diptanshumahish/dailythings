@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:upgrader/upgrader.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Upgrader.clearSavedSettings();
+  // await Upgrader.clearSavedSettings();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -23,13 +22,10 @@ class DailyThings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UpgradeAlert(
-      upgrader: Upgrader(),
-      child: MaterialApp(
-          title: 'DailyThings',
-          debugShowCheckedModeBanner: false,
-          theme: DailyThingsTheme.theme,
-          home: const SplashScreen()),
-    );
+    return MaterialApp(
+        title: 'DailyThings',
+        debugShowCheckedModeBanner: false,
+        theme: DailyThingsTheme.theme,
+        home: const SplashScreen());
   }
 }
